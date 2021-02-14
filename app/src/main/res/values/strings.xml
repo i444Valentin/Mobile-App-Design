@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">StudentCounter</string>
+    <string name="txt_students">студентов</string>
+    <string name="btn_students">Добавить студента</string>
+</resources>
