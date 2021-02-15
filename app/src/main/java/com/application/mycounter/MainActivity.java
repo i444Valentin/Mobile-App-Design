@@ -11,12 +11,17 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
-    private Integer counter = 0;
-    private Integer prevLength=0;
-    private Integer length=0;
-    public static final String TAG = "StartActivity";
+    private Integer counter = 0; //счетчик студентов
+    private Integer prevLength=0; //предыдущаяя длина кол-ва студентов
+    private Integer length=0; // длина кол-ва студентов
+    private int width = 333; //диаметр окружности - ширина
+    private int height = 333;//диаметр окружности - высота
+    public static final String TAG = "StartActivity"; // - тег (для отладки)
 
-
+    /**
+     * Начало работы Activity
+     * @param savedInstanceState - сохраненное состояние
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +30,11 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(this, "onCreate()", Toast.LENGTH_LONG).show();
     }
 
+    /**
+     * Действие, происходящее при клике на кнопку "Добавить"
+     *
+     * @param view - область с кнопкой
+     */
     @SuppressLint("SetTextI18n")
     public void onClickBtnAddStudents(View view) {
         counter++;
@@ -42,13 +52,19 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Запускается после создания activity
+     *
+     */
     @Override
     protected void onStart() {
         super.onStart();
         Log.d(TAG, "onStart");
-        resetUI();
     }
 
+    /**
+     * Восстанавливает состояние после заморозки
+     */
     @Override
     protected void onResume() {
         super.onResume();
@@ -56,6 +72,11 @@ public class MainActivity extends AppCompatActivity {
         resetUI();
     }
 
+    /**
+     * Сохраняет состояние активити, а также все переменные и поля класса
+     *
+     * @param outState - внешнее состояние
+     */
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -67,6 +88,11 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "onSaveInstanceState");
     }
 
+    /**
+     * Восстанавливает состояние из сохраненного
+     *
+     * @param savedInstanceState - сохраненное состояние
+     */
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
@@ -77,17 +103,22 @@ public class MainActivity extends AppCompatActivity {
             counter = savedInstanceState.getInt("counter");
             prevLength = savedInstanceState.getInt("prevLength");
             length = savedInstanceState.getInt("length");
-            TextView textView = findViewById(R.id.txt_counter);
-            ViewGroup.LayoutParams params = textView.getLayoutParams();
-            params.width = savedInstanceState.getInt("width");
-            params.height = savedInstanceState.getInt("height");
-            textView.setLayoutParams(params);
+            width = savedInstanceState.getInt("width");
+            height = savedInstanceState.getInt("height");
         }
     }
 
+    /**
+     * Обновляет интерфейс пользователя при обновлении активити
+     *
+     */
     @SuppressLint("SetTextI18n")
     private void resetUI() {
         TextView textView = findViewById(R.id.txt_counter);
         textView.setText(counter.toString());
+        ViewGroup.LayoutParams params = textView.getLayoutParams();
+        params.width = width;
+        params.height = height;
+        textView.setLayoutParams(params);
     }
 }
